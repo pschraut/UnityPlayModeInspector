@@ -1,0 +1,17 @@
+{
+    "name": "Unity.PlayModeInspector.Editor",
+    "references": [
+        "GUID:e028a5ff6e66c3948862cb135cce531c"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
