@@ -16,7 +16,7 @@ For me, it's much simpler if I can just write EditorGUI code directly inside the
 
 Writing the EditorGUI code inside the MonoBehaviour allows me to access private and non-serialized variables. Internal state most of the time is just that.
 
-I came up with the PlayMode Inspector idea in 2015 and it proved to be very useful tool all the time. I hope you find it equally useful.
+I came up with the PlayMode Inspector idea in 2015 and it proved to be a very useful tool all the time. I hope you find it equally useful.
 
 
 # Installation
@@ -65,7 +65,7 @@ If you then select the GameObject that contains a MonoBehaviour with the above m
 
 ![alt text](Documentation~/images/example_helloworld.png "Screenshot")
 
-`[PlayModeInspectorMethod]` methods are called periodically during play mode, more precisely 10 times per second.
+`[PlayModeInspectorMethod]` methods, while they're shown in the PlayMode Inspector window, are called periodically. More precisely, they are called 10 times per second.
 
 # Examples
 
@@ -77,7 +77,7 @@ Along with every example, I provide further information about the context and de
 
 Let's start with a Hello World example first.
 
-If you decorate a method with the [PlayModeInspectorMethod], it instructs the PlayMode Inspector window to run that method (draw the EditorGUI), when you select the GameObject with that particular MonoBehaviour.
+If you decorate a method with the `[PlayModeInspectorMethod]`, it instructs the PlayMode Inspector window to call that method periodically (draw the EditorGUI), when you select the GameObject with that particular MonoBehaviour.
 
 ![alt text](Documentation~/images/example_helloworld.png "Screenshot")
 
