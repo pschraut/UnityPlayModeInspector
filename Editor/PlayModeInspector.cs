@@ -33,7 +33,7 @@ namespace Oddworm.EditorFramework
             m_ExceptionOccurred = false;
             titleContent = new GUIContent("PlayMode Inspector");
 
-            var icon = EditorGUIUtility.IconContent("d_UnityEditor.InspectorWindow");
+            var icon = EditorGUIUtility.IconContent("UnityEditor.InspectorWindow");
             if (icon != null)
                 titleContent.image = icon.image;
 
