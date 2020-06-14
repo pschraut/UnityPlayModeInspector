@@ -3,6 +3,7 @@
 // https://github.com/pschraut/UnityPlayModeInspector
 //
 using System;
+using UnityEngine;
 
 namespace Oddworm.Framework
 {
@@ -12,5 +13,14 @@ namespace Oddworm.Framework
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     sealed public class PlayModeInspectorMethodAttribute : Attribute
     {
+        /// <summary>
+        /// The display name in the PlayMode Inspector titlebar.
+        /// It displays "TypeName.MethodName" by default, the displayName property allows you to override it.
+        /// </summary>
+        public string displayName
+        {
+            get;
+            set;
+        }
     }
 }

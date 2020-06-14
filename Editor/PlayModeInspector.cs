@@ -213,7 +213,7 @@ namespace Oddworm.EditorFramework
         void ShowStaticMethodPopup()
         {
             var menu = new GenericMenu();
-            var methods = new List<MethodInfo>();
+            var methods = new List<AbstractEntry>();
 
             // Find all static methods that are decorated with the PlayModeInspectorMethod attribute.
             foreach (var method in TypeCache.GetMethodsWithAttribute<PlayModeInspectorMethodAttribute>())
@@ -224,19 +224,19 @@ namespace Oddworm.EditorFramework
                 if (method.DeclaringType.IsGenericType)
                     continue;
 
-                methods.Add(method);
+                StaticMethodEntry.TryCreate(method, methods);
             }
 
             // Sort methods, so they appear in a stable order in the menu.
-            methods.Sort(delegate (MethodInfo x, MethodInfo y)
+            methods.Sort(delegate (AbstractEntry x, AbstractEntry y)
             {
-                return x.Name.CompareTo(y.Name);
+                return x.title.text.CompareTo(y.title.text);
             });
 
             // Add each method to the context-menu.
             foreach (var method in methods)
             {
-                var title = new GUIContent(string.Format("{0}.{1}", method.DeclaringType.Name, method.Name));
+                var title = method.title;
 
                 menu.AddItem(title, false,
                     delegate (object userData)
@@ -257,7 +257,7 @@ namespace Oddworm.EditorFramework
         {
             GUIStyle inspectorTitlebar = "IN Title";
 
-            var editorPrefsKey = string.Format("PlayModeInspector.{0}.expanded", entry.GetEditorPrefKey());
+            var editorPrefsKey = string.Format("PlayModeInspector.{0}.expanded", entry.editorPrefKey);
             var isExpanded = EditorPrefs.GetBool(editorPrefsKey, true);
 
             var r = GUILayoutUtility.GetRect(0, 22, GUILayout.ExpandWidth(true));
@@ -272,7 +272,7 @@ namespace Oddworm.EditorFramework
             if (isExpanded != newExpaned)
                 EditorPrefs.SetBool(editorPrefsKey, newExpaned);
 
-            var title = entry.GetTitle();
+            var title = entry.title;
 
             var ricon = r;
             ricon.x += 20; ricon.y += 3; ricon.width = 16; ricon.height = 16;
@@ -288,9 +288,44 @@ namespace Oddworm.EditorFramework
 
         abstract class AbstractEntry
         {
+            public GUIContent title
+            {
+                get
+                {
+                    string title;
+
+                    var attribute = m_Method.GetCustomAttribute<PlayModeInspectorMethodAttribute>(true);
+                    if (attribute != null && !string.IsNullOrEmpty(attribute.displayName))
+                        title = attribute.displayName;
+                    else
+                        title = string.Format("{0}.{1}", m_Method.DeclaringType.Name, m_Method.Name);
+
+                    if (m_Object != null)
+                        title += string.Format(" ({0})", m_Object.name);
+
+                    GUIContent content = new GUIContent(title);
+
+                    if (m_Object != null)
+                        content.image = AssetPreview.GetMiniThumbnail(m_Object);
+                    else
+                        content.image = AssetPreview.GetMiniTypeThumbnail(typeof(MonoScript));
+
+                    return content;
+                }
+            }
+
+            public string editorPrefKey
+            {
+                get
+                {
+                    return string.Format("{0}.{1}", m_Method.DeclaringType.Name, m_Method.Name);
+                }
+            }
+
+            protected UnityEngine.Object m_Object;
+            protected MethodInfo m_Method;
+
             abstract public void Invoke();
-            abstract public GUIContent GetTitle();
-            abstract public string GetEditorPrefKey();
 
             static protected bool IsMethodValid(MethodInfo method)
             {
@@ -313,9 +348,6 @@ namespace Oddworm.EditorFramework
 
         class UnityEngineObjectEntry : AbstractEntry
         {
-            UnityEngine.Object m_Object;
-            MethodInfo m_Method;
-
             public static bool TryCreate(UnityEngine.Object o, List<AbstractEntry> target)
             {
                 if (o == null)
@@ -340,31 +372,6 @@ namespace Oddworm.EditorFramework
                 m_Method = method;
             }
 
-            public override string GetEditorPrefKey()
-            {
-                var go = m_Object;
-                if (go != null)
-                    return string.Format("{0}.{1}", go.GetType().Name, m_Method.Name);
-
-                return "";
-            }
-
-            public override GUIContent GetTitle()
-            {
-                var content = new GUIContent();
-                var go = m_Object as UnityEngine.Object;
-                if (go != null)
-                {
-                    content.text = string.Format("{0}.{1} ({2})", go.GetType().Name, m_Method.Name, go.name);
-                    content.image = AssetPreview.GetMiniThumbnail(go);
-                }
-                else if (m_Object != null)
-                {
-                    content.text = string.Format("{0}.{1}", m_Object.GetType().Name, m_Method.Name);
-                }
-                return content;
-            }
-
             public override void Invoke()
             {
                 if (m_Method != null)
@@ -374,8 +381,6 @@ namespace Oddworm.EditorFramework
 
         class StaticMethodEntry : AbstractEntry
         {
-            MethodInfo m_Method;
-
             public static bool TryCreate(MethodInfo method, List<AbstractEntry> target)
             {
                 if (method == null)
@@ -394,19 +399,6 @@ namespace Oddworm.EditorFramework
             public StaticMethodEntry(MethodInfo o)
             {
                 m_Method = o;
-            }
-
-            public override string GetEditorPrefKey()
-            {
-                return string.Format("{0}.{1}", m_Method.DeclaringType.Name, m_Method.Name);
-            }
-
-            public override GUIContent GetTitle()
-            {
-                var content = new GUIContent();
-                content.text = string.Format("{0}.{1}", m_Method.DeclaringType.Name, m_Method.Name);
-                content.image = AssetPreview.GetMiniTypeThumbnail(typeof(MonoScript));
-                return content;
             }
 
             public override void Invoke()
