@@ -266,11 +266,19 @@ namespace Oddworm.EditorFramework
             var rtitlebar = r;
             GUI.Box(rtitlebar, "", inspectorTitlebar);
 
+            var e = Event.current;
+            if (e != null)
+            {
+                if (e.type == EventType.MouseDown && e.button == 0 && rtitlebar.Contains(e.mousePosition))
+                {
+                    EditorPrefs.SetBool(editorPrefsKey, !isExpanded);
+                    e.Use();
+                }
+            }
+
             var rfoldout = r;
             rfoldout.x += 4; rfoldout.width = 16;
-            var newExpaned = GUI.Toggle(rfoldout, isExpanded, "", EditorStyles.foldout);
-            if (isExpanded != newExpaned)
-                EditorPrefs.SetBool(editorPrefsKey, newExpaned);
+            GUI.Toggle(rfoldout, isExpanded, "", EditorStyles.foldout);
 
             var title = entry.title;
 
@@ -283,7 +291,7 @@ namespace Oddworm.EditorFramework
             rlabel.x += 38;
             GUI.Button(rlabel, title.text, EditorStyles.boldLabel);
 
-            return newExpaned;
+            return isExpanded;
         }
 
         abstract class AbstractEntry

@@ -6,7 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
  
 ## [1.1.0] - 2020-??-??
 ### Added
- - Functionality to override the default display name shown in the PlayMode Inspector titlebar. Use the "displayName" property found in the PlayModeInspectorMethod attribute for this.
+ - Functionality to override the default display name shown in the PlayMode Inspector item header. Use the "displayName" property found in the PlayModeInspectorMethod attribute for this.
+ - Functionality to expand/collapse an item by clicking anywhere in the header, rather than on the toggle only.
 
 ### Fixed
  - Window icon barely visible with Professional Editor Theme (Issue #1).
