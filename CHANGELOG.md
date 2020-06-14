@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
  - Window icon barely visible with Professional Editor Theme (Issue #1).
-
+ - Clicking the "Add PlayMode Inspector" button to create a new window, displays the current selected object now, rather than an empty window.
 
 ## [1.0.0] - 2020-05-31
  - First public release

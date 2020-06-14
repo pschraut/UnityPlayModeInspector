@@ -193,7 +193,10 @@ namespace Oddworm.EditorFramework
                 {
                     var wnd = EditorWindow.CreateInstance<PlayModeInspector>();
                     if (wnd != null)
+                    {
                         wnd.Show();
+                        wnd.OnSelectionChange();
+                    }
                 }
                 GUILayout.Space(1);
 
