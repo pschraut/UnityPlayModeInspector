@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System;
 using Oddworm.Framework;
+using UnityEditor.Experimental.SceneManagement;
 
 namespace Oddworm.EditorFramework
 {
@@ -63,10 +64,22 @@ namespace Oddworm.EditorFramework
 
             // If a GameObject is selected, we want to check each of its Components
             // if one or multiple of them have a method with the [PlayModeInspectorMethod] attribute
+            // Only call method on active gameobjects in a scene. Otherwise variables could not be initialized when we select a prefab.
             if (Selection.activeGameObject != null)
             {
-                foreach (var c in Selection.activeGameObject.GetComponents<Component>())
-                    UnityEngineObjectEntry.TryCreate(c, m_Entries);
+                var show = Selection.activeGameObject.activeInHierarchy;
+
+                if (!Selection.activeGameObject.scene.IsValid())
+                    show = false; // prefab in the project window, not a gameobject in the scene
+
+                if (PrefabStageUtility.GetPrefabStage(Selection.activeGameObject) != null)
+                    show = false; // don't run in prefab stage
+
+                if (show)
+                {
+                    foreach (var c in Selection.activeGameObject.GetComponents<Component>())
+                        UnityEngineObjectEntry.TryCreate(c, m_Entries);
+                }
             }
 
             // If a ScriptableObject is selected, there really is just that one object where
@@ -103,7 +116,7 @@ namespace Oddworm.EditorFramework
 
             if (m_Entries == null || m_Entries.Count == 0)
             {
-                EditorGUILayout.HelpBox($"No object found with a [PlayModeInspectorMethod] attribute.", MessageType.Info);
+                EditorGUILayout.HelpBox($"No active Component or ScriptableObject found with a [PlayModeInspectorMethod] attribute.", MessageType.Info);
                 return;
             }
 
