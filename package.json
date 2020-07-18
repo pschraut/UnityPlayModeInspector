@@ -1,6 +1,6 @@
 {
   "name": "com.oddworm.playmodeinspector",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "displayName": "PlayMode Inspector",
   "description": "PlayMode Inspector allows you to write EditorGUI code inside your MonoBehaviour classes and displays it in a dedicated window.",
   "unity": "2019.3",
