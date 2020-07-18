@@ -229,7 +229,7 @@ namespace Oddworm.EditorFramework
         void ShowStaticMethodPopup()
         {
             var menu = new GenericMenu();
-            var methods = new List<AbstractEntry>();
+            var entries = new List<AbstractEntry>();
 
             // Find all static methods that are decorated with the PlayModeInspectorMethod attribute.
             foreach (var method in TypeCache.GetMethodsWithAttribute<PlayModeInspectorMethodAttribute>())
@@ -240,28 +240,28 @@ namespace Oddworm.EditorFramework
                 if (method.DeclaringType.IsGenericType)
                     continue;
 
-                StaticMethodEntry.TryCreate(method, methods);
+                StaticMethodEntry.TryCreate(method, entries);
             }
 
             // Sort methods, so they appear in a stable order in the menu.
-            methods.Sort(delegate (AbstractEntry x, AbstractEntry y)
+            entries.Sort(delegate (AbstractEntry x, AbstractEntry y)
             {
                 return x.title.text.CompareTo(y.title.text);
             });
 
             // Add each method to the context-menu.
-            foreach (var method in methods)
+            foreach (var entry in entries)
             {
-                var title = method.title;
+                var title = entry.title;
 
                 menu.AddItem(title, false,
                     delegate (object userData)
                     {
                         // If the item is selected, assign it to be inspected.
                         m_Entries = new List<AbstractEntry>();
-                        StaticMethodEntry.TryCreate(userData as MethodInfo, m_Entries);
+                        m_Entries.Add(entry);
                     },
-                    method);
+                    entry);
             }
 
             menu.ShowAsContext();
