@@ -11,7 +11,7 @@ namespace Oddworm.Framework
     /// Use this attribute to expose a method to the PlayMode Inspector window.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
-    sealed public class PlayModeInspectorMethodAttribute : Attribute
+    public class PlayModeInspectorMethodAttribute : Attribute
     {
         /// <summary>
         /// The display name in the PlayMode Inspector titlebar.
