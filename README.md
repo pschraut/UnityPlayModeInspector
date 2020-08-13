@@ -29,6 +29,7 @@ In Unity's Package Manager, choose "Add package from git URL" and insert one of 
 
 | Version  |     Link      |
 |----------|---------------|
+| 1.2.0 | https://github.com/pschraut/UnityPlayModeInspector.git#1.2.0 |
 | 1.1.0 | https://github.com/pschraut/UnityPlayModeInspector.git#1.1.0 |
 | 1.0.0 | https://github.com/pschraut/UnityPlayModeInspector.git#1.0.0 |
 
@@ -226,3 +227,25 @@ public static class HeroPerFrame
     }
 }
 ```
+
+
+## Example - Custom PlayModeInspectorMethod Attribute
+
+You can implement your own `PlayModeInspectorMethodAttribute` and use your implementation throughout your code. The advantage of doing it this way is if you remove PlayMode Inspector from the project, you need to do minimal code changes only for it to still compile. In this case you would only need to change your own attribute and the project would still compile without PlayMode Inspector in the project!
+
+
+```csharp
+public class CustomPlayModeInspectorMethodAttribute : Oddworm.Framework.PlayModeInspectorMethodAttribute
+{
+}
+
+[CustomPlayModeInspectorMethod]
+void MyCustomPlayModeInspectorMethod()
+{
+#if UNITY_EDITOR
+    UnityEditor.EditorGUILayout.HelpBox("Using a custom attribute.", UnityEditor.MessageType.Info);
+#endif
+}
+```
+
+
