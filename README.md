@@ -33,6 +33,11 @@ In Unity's Package Manager, choose "Add package from git URL" and insert one of 
 | 1.1.0 | https://github.com/pschraut/UnityPlayModeInspector.git#1.1.0 |
 | 1.0.0 | https://github.com/pschraut/UnityPlayModeInspector.git#1.0.0 |
 
+# Credits
+
+If you find this package useful, please mention my name in your credits screen.
+Something like "PlayMode Inspector by Peter Schraut" or "Thanks to Peter Schraut" would be very much appreciated.
+
 
 # How it works
 
