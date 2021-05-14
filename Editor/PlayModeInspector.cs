@@ -39,6 +39,10 @@ namespace Oddworm.EditorFramework
                 titleContent.image = icon.image;
 
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+
+            // If an object is selected already and the PlayMode Inspector window is opened
+            // afterwards, make sure to display the selected object without having it to reselect.
+            OnSelectionChange();
         }
 
         void OnDisable()

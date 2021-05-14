@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
  - Improved message when the current selection doesn't contain a Component or ScriptableObject with a [PlayModeInspectorMethod] attribute.
 
+### Fixed
+ - Opening the PlayMode Inspector window, while an object is selected already, not correctly displays the selected object in PlayMode Inspector, without the need to deselect and then select the object again.
+
 ## [1.2.0] - 2020-08-13
 ### Changed
  - Removed "sealed" keyword from the PlayModeInspectorMethodAttribute class. This allows to derive from it and use your own attribute in your code. In case you want to get rid of the PlayMode Inspector package, you only need to change your own attribute and everything still compiles.
