@@ -116,7 +116,7 @@ namespace Oddworm.EditorFramework
 
             if (m_Entries == null || m_Entries.Count == 0)
             {
-                EditorGUILayout.HelpBox($"No active Component or ScriptableObject found with a [PlayModeInspectorMethod] attribute.", MessageType.Info);
+                EditorGUILayout.HelpBox($"Current selection does not contain a Component or ScriptableObject with a [PlayModeInspectorMethod] attribute.", MessageType.Info);
                 return;
             }
 
