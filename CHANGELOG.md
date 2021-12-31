@@ -4,6 +4,12 @@ All notable changes to this package are documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+
+## [1.4.0] - 2021-12-31
+### Fixed
+ - Fixed compile errors that occurred in Unity 2021.2 and newer.
+ - Fixed that ExitGUIException caused the PlayMode Inspector window to display "An error occurred" until the GameObject selection was changed.
+
 ## [1.3.0] - 2021-05-14
 ### Changed
  - Improved message when the current selection doesn't contain a Component or ScriptableObject with a [PlayModeInspectorMethod] attribute.

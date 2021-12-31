@@ -21,14 +21,16 @@ I came up with the PlayMode Inspector idea in 2015 and it proved to be a very us
 
 # Installation
 
-In order to use PlayMode Inspector, you have to add the package to your project. As of Unity 2019.3, Unity supports to add packages from git through the Package Manager window.
-
-In Unity's Package Manager, choose "Add package from git URL" and insert one of the Package URL's you can find below.
+As of Unity 2019.3, Unity supports to add packages from git through the Package Manager window. In Unity's Package Manager, choose "Add package from git URL" and insert one of the Package URL's you can find below.
 
 ## Package URL's
+I recommend to right-click the URL below and choose "Copy Link" rather than selecting the text and copying it, because sometimes it copies a space at the end and the Unity Package Manager can't handle it and spits out an error when you try to add the package.
+
+Please see the ```CHANGELOG.md``` file to see what's changed in each version.
 
 | Version  |     Link      |
 |----------|---------------|
+| 1.4.0 | https://github.com/pschraut/UnityPlayModeInspector.git#1.4.0 |
 | 1.3.0 | https://github.com/pschraut/UnityPlayModeInspector.git#1.3.0 |
 | 1.2.0 | https://github.com/pschraut/UnityPlayModeInspector.git#1.2.0 |
 | 1.1.0 | https://github.com/pschraut/UnityPlayModeInspector.git#1.1.0 |

@@ -9,7 +9,12 @@ using System.Collections.Generic;
 using System.Reflection;
 using System;
 using Oddworm.Framework;
+
+#if UNITY_2021_2_OR_NEWER
+using UnityEditor.SceneManagement;
+#else
 using UnityEditor.Experimental.SceneManagement;
+#endif
 
 namespace Oddworm.EditorFramework
 {
@@ -138,10 +143,8 @@ namespace Oddworm.EditorFramework
                 return;
             }
 
-            using (var scrollView = new EditorGUILayout.ScrollViewScope(m_ScrollPosition))
+            m_ScrollPosition = EditorGUILayout.BeginScrollView(m_ScrollPosition);
             {
-                m_ScrollPosition = scrollView.scrollPosition;
-
                 for (var n = 0; n < m_Entries.Count; ++n)
                 {
                     var entry = m_Entries[n];
@@ -151,15 +154,15 @@ namespace Oddworm.EditorFramework
                     GUI.enabled = true;
                     GUI.matrix = Matrix4x4.identity;
 
-                    using (new EditorGUILayout.VerticalScope())
+                    EditorGUILayout.BeginVertical();
                     {
                         var isExpanded = DrawTitlebar(entry);
 
-                        using (new EditorGUILayout.HorizontalScope())
+                        EditorGUILayout.BeginHorizontal();
                         {
                             GUILayout.Space(18);
 
-                            using (new EditorGUILayout.VerticalScope())
+                            EditorGUILayout.BeginVertical();
                             {
                                 GUILayout.Space(6);
 
@@ -170,35 +173,54 @@ namespace Oddworm.EditorFramework
                                 }
                                 catch (Exception e)
                                 {
-                                    m_ExceptionOccurred = true;
-                                    Debug.LogException(e);
+                                    if (IsCrititalException(e))
+                                    {
+                                        m_ExceptionOccurred = true;
+                                        Debug.LogException(e);
+                                    }
                                 }
 
                                 GUILayout.Space(8);
                             }
+                            EditorGUILayout.EndVertical();
                         }
+                        EditorGUILayout.EndHorizontal();
                     }
+                    EditorGUILayout.EndVertical();
                 }
 
                 GUILayout.Space(16);
             }
+            EditorGUILayout.EndScrollView();
+        }
+
+        bool IsCrititalException(Exception e)
+        {
+            if (e is ExitGUIException)
+                return false;
+            if (e != null && e.InnerException is ExitGUIException)
+                return false;
+
+            return true;
         }
 
         void DrawToolbar()
         {
-            using (new EditorGUILayout.HorizontalScope())
+            EditorGUILayout.BeginHorizontal();
             {
                 var newLock = GUILayout.Toggle(m_Locked, "Lock", EditorStyles.toolbarButton, GUILayout.Width(50));
                 if (newLock != m_Locked)
                 {
                     m_Locked = newLock;
                     OnSelectionChange();
+                    GUIUtility.ExitGUI();
                     return;
                 }
 
                 if (GUILayout.Button("Static...", EditorStyles.toolbarDropDown, GUILayout.Width(60)))
                 {
                     ShowStaticMethodPopup();
+                    GUIUtility.ExitGUI();
                     return;
                 }
 
@@ -219,6 +241,7 @@ namespace Oddworm.EditorFramework
 
                 GUILayout.Box("", EditorStyles.toolbar, GUILayout.ExpandWidth(true));
             }
+            EditorGUILayout.EndHorizontal();
 
             // Draws a separator line as found in all Unity toolbars.
             // TODO: There must be an existing style for it, right?

@@ -1,8 +1,8 @@
 {
   "name": "com.oddworm.playmodeinspector",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "displayName": "PlayMode Inspector",
-  "description": "PlayMode Inspector allows you to write EditorGUI code inside your MonoBehaviour classes and displays it in a dedicated window.",
+  "description": "PlayMode Inspector allows you to write EditorGUI code inside your MonoBehaviour classes to display it inside the dedicated PlayMode Inspector window.\n\nOpen PlayMode Inspector from the Unity main menu under 'Window > Analysis > PlayMode Inspector.'",
   "unity": "2019.3",
   "documentationUrl": "https://github.com/pschraut/UnityPlayModeInspector",
   "dependencies": {
