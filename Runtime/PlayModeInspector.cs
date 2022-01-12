@@ -1,5 +1,5 @@
 ﻿//
-// PlayMode Inspector for Unity. Copyright (c) 2015-2020 Peter Schraut (www.console-dev.de). See LICENSE.md
+// PlayMode Inspector for Unity. Copyright (c) 2015-2022 Peter Schraut (www.console-dev.de). See LICENSE.md
 // https://github.com/pschraut/UnityPlayModeInspector
 //
 using System;
