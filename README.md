@@ -4,13 +4,13 @@ PlayMode Inspector allows you to draw EditorGUI from inside your MonoBehaviour t
 
 When I write program code, such as new MonoBehaviour, I often want to visualize part of its internal state.
 
-This helps me to understand what it's really doing, what is especially important during development and thus allows me to iterate on features and fix bugs faster than not knowing.
+This helps me to understand what it's really doing, thus allows me to iterate on features and fix bugs faster than not knowing.
 
 Such internal state is mostly interesting for developers. I don't want to expose it to the regular Unity Inspector, where everybody working on the project gets then annoyed and perhaps overwhelmed by it.
 
 I don't want to write a custom Editor for every MonoBehaviour.
 
-I don't want to create or use an overly complex Inspector system and specify how to visualize certain things using a gazillion interconnected attributes. Been there, not my thing.
+I don't want to create or use an overly complex Inspector system and specify how to visualize certain things using a gazillion interconnected attributes.
 
 For me, it's much simpler if I can just write EditorGUI code directly inside the MonoBehaviour with an `#if UNITY_EDITOR #endif` block around.
 
@@ -21,7 +21,7 @@ I came up with the PlayMode Inspector idea in 2015 and it proved to be a very us
 
 # Installation
 
-As of Unity 2019.3, Unity supports to add packages from git through the Package Manager window. In Unity's Package Manager, choose "Add package from git URL" and insert one of the Package URL's you can find below.
+In Unity's Package Manager, choose "Add package from git URL" and insert one of the Package URL's you can find below.
 
 ## Package URL's
 I recommend to right-click the URL below and choose "Copy Link" rather than selecting the text and copying it, because sometimes it copies a space at the end and the Unity Package Manager can't handle it and spits out an error when you try to add the package.
@@ -30,6 +30,7 @@ Please see the ```CHANGELOG.md``` file to see what's changed in each version.
 
 | Version  |     Link      |
 |----------|---------------|
+| 1.5.0 | https://github.com/pschraut/UnityPlayModeInspector.git#1.5.0 |
 | 1.4.0 | https://github.com/pschraut/UnityPlayModeInspector.git#1.4.0 |
 | 1.3.0 | https://github.com/pschraut/UnityPlayModeInspector.git#1.3.0 |
 | 1.2.0 | https://github.com/pschraut/UnityPlayModeInspector.git#1.2.0 |
