@@ -404,14 +404,22 @@ namespace Oddworm.EditorFramework
                 if (o == null)
                     return false;
 
+                var loopguard = 0;
                 var type = o.GetType();
-                foreach(var method in type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
+                while (type != null)
                 {
-                    var attr = method.GetCustomAttribute<PlayModeInspectorMethodAttribute>();
-                    if (attr != null && IsMethodValid(method))
+                    foreach (var method in type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
                     {
-                        target.Add(new UnityEngineObjectEntry(o, method));
+                        var attr = method.GetCustomAttribute<PlayModeInspectorMethodAttribute>();
+                        if (attr != null && IsMethodValid(method))
+                        {
+                            target.Add(new UnityEngineObjectEntry(o, method));
+                        }
                     }
+
+                    type = type.BaseType;
+                    if (loopguard++ > 32)
+                        break; // 32 levels of inheritance? just give up...
                 }
 
                 return true;
