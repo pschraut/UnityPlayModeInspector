@@ -1,5 +1,5 @@
 ﻿//
-// PlayMode Inspector for Unity. Copyright (c) 2015-2020 Peter Schraut (www.console-dev.de). See LICENSE.md
+// PlayMode Inspector for Unity. Copyright (c) 2015-2022 Peter Schraut (www.console-dev.de). See LICENSE.md
 // https://github.com/pschraut/UnityPlayModeInspector
 //
 #pragma warning disable IDE1006, IDE0017
@@ -300,7 +300,7 @@ namespace Oddworm.EditorFramework
         {
             GUIStyle inspectorTitlebar = "IN Title";
 
-            var editorPrefsKey = string.Format("PlayModeInspector.{0}.expanded", entry.editorPrefKey);
+            var editorPrefsKey = $"PlayModeInspector.{entry.editorPrefKey}.expanded";
             var isExpanded = EditorPrefs.GetBool(editorPrefsKey, true);
 
             var r = GUILayoutUtility.GetRect(0, 22, GUILayout.ExpandWidth(true));
@@ -349,10 +349,10 @@ namespace Oddworm.EditorFramework
                     if (attribute != null && !string.IsNullOrEmpty(attribute.displayName))
                         title = attribute.displayName;
                     else
-                        title = string.Format("{0}.{1}", m_Method.DeclaringType.Name, m_Method.Name);
+                        title = $"{m_Method.DeclaringType.Name}.{m_Method.Name}";
 
                     if (m_Object != null)
-                        title += string.Format(" ({0})", m_Object.name);
+                        title += $" ({m_Object.name})";
 
                     GUIContent content = new GUIContent(title);
 
@@ -369,7 +369,7 @@ namespace Oddworm.EditorFramework
             {
                 get
                 {
-                    return string.Format("{0}.{1}", m_Method.DeclaringType.Name, m_Method.Name);
+                    return $"{m_Method.DeclaringType.Name}.{m_Method.Name}";
                 }
             }
 
