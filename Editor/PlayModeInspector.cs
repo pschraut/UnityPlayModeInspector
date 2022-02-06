@@ -404,12 +404,20 @@ namespace Oddworm.EditorFramework
                 if (o == null)
                     return false;
 
+                var ignore = new List<MethodInfo>();
                 var loopguard = 0;
                 var type = o.GetType();
                 while (type != null)
                 {
                     foreach (var method in type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
                     {
+                        // ignore base methods that have been overridden
+                        if (ignore.Contains(method))
+                            continue;
+                        var baseDef = method.GetBaseDefinition();
+                        if (baseDef != null)
+                            ignore.Add(baseDef);
+
                         var attr = method.GetCustomAttribute<PlayModeInspectorMethodAttribute>();
                         if (attr != null && IsMethodValid(method))
                         {

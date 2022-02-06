@@ -4,9 +4,13 @@ All notable changes to this package are documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.6.0] - 2022-02-06
+### Fixed
+ - Fixed that overridden virtual methods, decorated with [PlayModeInspectorMethod], show up twice in the PlayMode Inspector window.
+
 ## [1.5.0] - 2022-01-12
 ### Fixed
- - Fixed that methods in base classes decorated with PlayModeInspectorMethodAttribute weren't picked up.
+ - Fixed that methods in base classes, decorated with [PlayModeInspectorMethod], don't show up in the PlayMode Inspector window.
 
 ## [1.4.0] - 2021-12-31
 ### Fixed
